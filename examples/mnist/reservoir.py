@@ -134,7 +134,7 @@ for (i, dataPoint) in pbar:
     pbar.set_description_str("Train progress: (%d / %d)" % (i, n_iters))
 
     network.run(inputs={"I": datum}, time=time, input_time_dim=1)
-    training_pairs.append([spikes["O"].get("s").sum(0), label])
+    training_pairs.append([spikes["O"].get("s").sum(0).to(device), label])
 
     if plot:
 
@@ -216,7 +216,7 @@ for (i, dataPoint) in pbar:
     pbar.set_description_str("Testing progress: (%d / %d)" % (i, n_iters))
 
     network.run(inputs={"I": datum}, time=250, input_time_dim=1)
-    test_pairs.append([spikes["O"].get("s").sum(0), label])
+    test_pairs.append([spikes["O"].get("s").sum(0).to(device), label])
 
     if plot:
         inpt_axes, inpt_ims = plot_input(
